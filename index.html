@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FairShare</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>FairShare</h1>
+  </header>
+
+  <main>
+    <section id="participants">
+      <h2>Participants</h2>
+      <input type="text" id="nameInput" placeholder="Add name" />
+      <button onclick="addParticipant()">Add</button>
+      <ul id="participantList"></ul>
+    </section>
+
+    <section id="items">
+      <h2>Items</h2>
+      <input type="text" id="itemName" placeholder="Item name" />
+      <input type="number" id="itemCost" placeholder="Cost" />
+      <button onclick="addItem()">Add Item</button>
+      <ul id="itemList"></ul>
+    </section>
+
+    <section id="results">
+      <h2>Summary</h2>
+      <button onclick="calculateSplit()">Calculate</button>
+      <div id="summaryOutput"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+</script>
+</body>
+</html>
