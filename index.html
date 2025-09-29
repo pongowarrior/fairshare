@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FairShare — Universal Bill Splitter</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>FairShare</h1>
+        <p class="tagline">Split bills, not friendships. Clean. Offline. Universal.</p>
+    </header>
+
+    <main id="app-container">
+        
+        <section class="card split-mode-selector">
+            <h2>Split Mode</h2>
+            <div class="mode-switch-group">
+                <button id="even-split-btn" class="mode-btn active">Even Split</button>
+                <button id="itemized-split-btn" class="mode-btn">Itemized Split</button>
+            </div>
+        </section>
+
+        <section class="card bill-input-card">
+            <h2>Bill Details</h2>
+            
+            <div class="input-group">
+                <label for="bill-total">Bill Subtotal (before Tax/Tip)</label>
+                <input type="number" id="bill-total" value="0.00" min="0" step="0.01" class="text-input" placeholder="0.00">
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="tax-rate">Tax Rate (%)</label>
+                    <input type="number" id="tax-rate" value="0" min="0" step="0.1" class="text-input small-input" placeholder="0">
+                </div>
+                
+                <div class="input-group">
+                    <label for="tip-rate">Tip Rate (%)</label>
+                    <input type="number" id="tip-rate" value="15" min="0" step="1" class="text-input small-input" placeholder="15">
+                </div>
+            </div>
+        </section>
+
+        <section class="card itemized-input-card hidden">
+            <h2>Items & Costs</h2>
+            <div id="itemized-list-container">
+                </div>
+
+            <div class="add-item-group">
+                <input type="text" id="new-item-name" class="text-input item-input-name" placeholder="Item Name">
+                <input type="number" id="new-item-cost" min="0" step="0.01" class="text-input item-input-cost" placeholder="Cost">
+                <button id="add-item-btn" class="action-btn">Add Item</button>
+            </div>
+            <p class="warning-text">Ensure the sum of all item costs equals the Bill Subtotal.</p>
+        </section>
+
+        <section class="card people-management-card">
+            <h2>Who's Splitting?</h2>
+            
+            <div id="people-list-container">
+                </div>
+
+            <div class="add-person-group">
+                <input type="text" id="new-person-name" class="text-input" placeholder="Enter name (e.g., Alex)">
+                <button id="add-person-btn" class="action-btn">+</button>
+            </div>
+        </section>
+
+        <button id="calculate-btn" class="primary-btn">Calculate FairShare</button>
+
+        <section class="card summary-card hidden"> 
+            <h2>Final Breakdown</h2>
+            
+            <div class="summary-total-details">
+                <p>Subtotal: <span id="summary-subtotal">$0.00</span></p>
+                <p>Tax Amount: <span id="summary-tax">$0.00</span></p>
+                <p>Tip Amount: <span id="summary-tip">$0.00</span></p>
+                <hr>
+                <p class="final-total">GRAND TOTAL: <span id="summary-grand-total">$0.00</span></p>
+            </div>
+
+            <h3 class="split-header">Individual Shares</h3>
+            <div id="final-summary-shares">
+                </div>
+
+            <p class="per-person-display">Each person owes: <span id="per-person-amount">$0.00</span></p>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        // Register the Service Worker for Offline Functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

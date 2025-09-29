@@ -1,0 +1,386 @@
+:root {
+    --primary-color: #007bff;
+    --background-color: #f4f7f6;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --border-radius: 12px;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 0 1rem 1rem 1rem;
+}
+
+/* Full-Screen Optimization (PWA Look) */
+main {
+    padding: 1rem 0;
+}
+.app-header {
+    background-color: var(--card-background);
+    padding: 2rem 1rem 1rem;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.app-header .tagline {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+/* This targets the PWA after it is installed for a true full-screen look */
+@media all and (display-mode: standalone) {
+    body {
+        padding: 0; 
+    }
+    .app-header {
+        padding-top: calc(1.5rem + env(safe-area-inset-top));
+        margin-bottom: 1rem;
+        border-radius: 0;
+    }
+}
+
+/* --- Phase 2: Core UI Elements --- */
+
+/* Cards for Section Organization */
+.card {
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 0.5rem;
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.4rem;
+}
+
+.text-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+}
+
+.text-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.input-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+.small-input {
+    text-align: right;
+}
+
+/* Person & Action Buttons */
+.add-person-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.add-person-group .text-input {
+    flex-grow: 1;
+}
+
+.action-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 3.5rem;
+    height: 3.5rem;
+    line-height: 1;
+}
+
+.action-btn:active {
+    background-color: #0056b3;
+}
+
+.person-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.person-item:last-child {
+    border-bottom: none;
+}
+
+.person-name {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    line-height: 1;
+}
+
+/* --- Phase 3: Summary and Calculation Styling --- */
+
+/* Primary Action Button */
+.primary-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.primary-btn:active {
+    background-color: #0056b3;
+    transform: translateY(1px);
+}
+
+/* Summary Details Card */
+.summary-total-details p {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+    font-size: 0.95rem;
+    color: #555555;
+}
+
+.summary-total-details hr {
+    margin: 0.5rem 0;
+    border: 0;
+    border-top: 1px dashed #cccccc;
+}
+
+.summary-total-details .final-total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 1rem;
+}
+
+/* Individual Share Display */
+.split-header {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin: 1.5rem 0 0.75rem 0;
+    border-top: 1px solid #eeeeee;
+    padding-top: 0.75rem;
+}
+
+.share-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.share-item .amount {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.per-person-display {
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    background-color: rgba(0, 123, 255, 0.05);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+#per-person-amount {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+/* --- Phase 4: Itemized Splitting Styling --- */
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+/* Mode Switcher */
+.mode-switch-group {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--primary-color);
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    border: none;
+    background-color: var(--card-background);
+    color: var(--primary-color);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mode-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+/* Itemized Input Group */
+.itemized-input-card h2 {
+    margin-bottom: 1.25rem;
+}
+
+.add-item-group {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; 
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.add-item-group .text-input {
+    padding: 0.6rem 0.8rem;
+    height: 100%;
+}
+
+.add-item-group .action-btn {
+    width: auto;
+    height: auto;
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+}
+
+/* Individual Item Styling */
+.item-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 30px; 
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #f0f0f0;
+}
+
+.item-name {
+    font-weight: 500;
+}
+
+.item-cost {
+    text-align: right;
+    font-weight: bold;
+}
+
+.warning-text {
+    font-size: 0.8rem;
+    color: #dc3545;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Item Assignment Styles */
+.assignment-card {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.assignment-item-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.person-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.person-checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid #dee2e6;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.person-checkbox-group input[type="checkbox"]:checked + span {
+    background-color: #e9ecef;
+    border-color: var(--primary-color);
+    font-weight: bold;
+}
